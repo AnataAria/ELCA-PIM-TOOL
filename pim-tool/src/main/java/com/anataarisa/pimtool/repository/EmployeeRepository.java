@@ -1,10 +1,9 @@
 package com.anataarisa.pimtool.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.anataarisa.pimtool.entity.Employee;
 
-public interface EmployeeRepository extends BaseRepository<Employee> {
-    public List<Employee> getAll();
-    public Employee savEmployee(Employee employee);
+public interface EmployeeRepository extends JpaRepository<Employee, Number> {
+
 }

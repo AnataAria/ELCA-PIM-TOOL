@@ -1,5 +1,6 @@
 package com.anataarisa.pimtool.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -11,9 +12,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "EMPLOYEE")
-public class Employee {
+public class Employee implements Serializable {
     @Id
-    @Column(name = "ID")
+    @Column(name = "ID", length = 19, columnDefinition = "decimal")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Number id;
     @Column(name = "VISA", nullable = false, length = 3)
@@ -24,13 +25,12 @@ public class Employee {
     private String lastName;
     @Column(name = "BIRTH_DATE", nullable = false)
     private Date birthDate;
-    @Column(name = "VERSION", nullable = false)
+    @Column(name = "VERSION", nullable = false, columnDefinition = "decimal")
     private Number version;
 
     public Employee() {
 
     }
-    
 
     public Employee(Number id, String visa, String firstName, String lastName, Date birthDate, Number version) {
         this.id = id;
@@ -40,7 +40,6 @@ public class Employee {
         this.birthDate = birthDate;
         this.version = version;
     }
-
 
     public Number getId() {
         return this.id;

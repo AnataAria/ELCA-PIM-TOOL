@@ -1,6 +1,9 @@
 package com.anataarisa.pimtool.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,15 +11,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-public class Group {
+@Entity(name = "GROUPS")
+public class Group implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "ID", length = 19, columnDefinition = "decimal")
     private Number id;
     @OneToOne(orphanRemoval = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "ID")
     private Employee groupLeader;
-    @Column(name = "Version", nullable = false)
+    @Column(name = "Version", nullable = false, columnDefinition = "decimal")
     private Number version;
 
     public Group() {
@@ -51,5 +55,5 @@ public class Group {
     public void setVersion(Number version) {
         this.version = version;
     }
-    
+
 }

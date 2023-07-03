@@ -1,57 +1,28 @@
-package com.anataarisa.pimtool.entity;
+package com.anataarisa.pimtool.model;
 
-import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "PROJECT")
-public class Project implements Serializable {
-    @Id
-    @Column(name = "ID", length = 19, columnDefinition = "decimal")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class ProjectDTO {
     private Number id;
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Group.class)
-    private Group projectGroup;
-    @Column(name = "PROJECT_NUMBER", nullable = false, unique = true, columnDefinition = "decimal")
+    private GroupDTO projectGroup;
     private Number projectNumber;
-    @Column(name = "NAME", nullable = false)
     private String name;
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Employee.class)
-    @JoinTable(name = "PROJECT_EMPLOYEE", joinColumns = @JoinColumn(name = "EMPLOYEE_ID"), inverseJoinColumns = @JoinColumn(name = "PROJECT_ID"))
-    private List<Employee> employeeList;
-    @Column(name = "CUSTOMER", nullable = false)
+    private List<EmployeeDTO> employeeList;
     private String customer;
-    @Column(name = "STATUS", nullable = false, length = 3)
     private String status;
-    @Column(name = "START_DATE", nullable = false)
     private Date startDate;
-    @Column(name = "END_DATE", nullable = true)
     private Date endDate;
-    @Column(name = "VERSION", nullable = false, columnDefinition = "decimal")
     private Number version;
 
-    public Project() {
-    }
-
-    public Project(Number id, Group projectGroup, Number projectNumber, String name, String customer, String status,
-            Date startDate, Date endDate, Number version) {
+    public ProjectDTO(Number id, GroupDTO projectGroup, Number projectNumber, String name,
+            List<EmployeeDTO> employeeList, String customer, String status, Date startDate, Date endDate,
+            Number version) {
         this.id = id;
         this.projectGroup = projectGroup;
         this.projectNumber = projectNumber;
         this.name = name;
+        this.employeeList = employeeList;
         this.customer = customer;
         this.status = status;
         this.startDate = startDate;
@@ -67,11 +38,11 @@ public class Project implements Serializable {
         this.id = id;
     }
 
-    public Group getProjectGroup() {
+    public GroupDTO getProjectGroup() {
         return this.projectGroup;
     }
 
-    public void setProjectGroup(Group projectGroup) {
+    public void setProjectGroup(GroupDTO projectGroup) {
         this.projectGroup = projectGroup;
     }
 
@@ -89,6 +60,14 @@ public class Project implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<EmployeeDTO> getEmployeeList() {
+        return this.employeeList;
+    }
+
+    public void setEmployeeList(List<EmployeeDTO> employeeList) {
+        this.employeeList = employeeList;
     }
 
     public String getCustomer() {
